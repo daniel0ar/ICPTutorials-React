@@ -1,0 +1,71 @@
+type User = 
+ record {
+   admissionDate: int;
+   avatar: opt blob;
+   birthdate: opt nat;
+   country: opt text;
+   name: text;
+   sex: opt Sex;
+ };
+type Tutorial__1 = 
+ record {
+   assets: opt vec blob;
+   html: text;
+   tags: vec text;
+   title: text;
+ };
+type Tutorial = 
+ record {
+   assets: opt vec blob;
+   html: text;
+   tags: vec text;
+   title: text;
+ };
+type SignUpResult = 
+ variant {
+   err: SignUpErrors;
+   ok: User;
+ };
+type SignUpErrors = 
+ variant {
+   CallerAnnonymous;
+   InBlackList;
+   IsAlreadyAMember;
+ };
+type Sex = 
+ variant {
+   Female;
+   Male;
+   NonBinary;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type PublishResult = 
+ variant {
+   err: text;
+   ok: Publication;
+ };
+type Publication = 
+ record {
+   autor: nat;
+   content: Tutorial__1;
+   date: int;
+ };
+type ICPTutorials = 
+ service {
+   aprovePublication: (nat) -> (Result);
+   getAprovedPublication: () -> (vec Publication) query;
+   getIncomingPublication: () -> (vec Publication);
+   getMiId: () -> (opt nat);
+   getMiUser: () -> (opt User);
+   getPubFromUser: (nat) -> (vec Publication) query;
+   getUser: (principal) -> (opt User) query;
+   loadAvatar: (blob) -> (opt blob);
+   publish: (Tutorial) -> (PublishResult);
+   rejectPublication: (nat) -> (Result);
+   signUp: (text, opt Sex) -> (SignUpResult);
+ };
+service : () -> ICPTutorials
