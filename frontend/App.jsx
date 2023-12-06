@@ -4,8 +4,8 @@ import logo from "./assets/dfinity.svg"
  * Connect2ic provides essential utilities for IC app development
  */
 import { createClient } from "@connect2ic/core"
-import { defaultProviders } from "@connect2ic/core/providers"
-import { ConnectButton, ConnectDialog, Connect2ICProvider } from "@connect2ic/react"
+import { defaultProviders, InternetIdentity } from "@connect2ic/core/providers"
+import { ConnectButton, ConnectDialog, Connect2ICProvider, useConnect } from "@connect2ic/react"
 import "@connect2ic/core/style.css"
 /*
  * Import canister definitions like this:
@@ -21,6 +21,8 @@ import { Backend } from "./components/Backend"
 
 function App() {
 
+  const { principal } = useConnect();
+
   return (
     <div className="App">
 
@@ -32,7 +34,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p className="slogan">
-          React Template
+          ID is: {principal}
         </p>
         <p className="twitter">by <a href="https://twitter.com/miamaruq">@miamaruq</a></p>
       </header>
@@ -55,7 +57,13 @@ const client = createClient({
   canisters: {
     counter,
   },
-  providers: defaultProviders,
+  providers: [
+    new InternetIdentity({
+      dev: true,
+      // The url for the providers frontend
+      providerUrl: "http://localhost:4943/?canisterId=rdmx6-jaaaa-aaaaa-aaadq-cai",
+    })
+  ],
   globalProviderConfig: {
     /*
      * Disables dev mode in production
