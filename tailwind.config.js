@@ -5,7 +5,11 @@ export default {
     "./frontend/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "bg-gray": "rgb(36,36,40)"
+      }
+    },
   },
   plugins: [],
 }

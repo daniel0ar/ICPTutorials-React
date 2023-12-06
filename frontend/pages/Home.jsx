@@ -7,7 +7,7 @@ const Home = () => {
 
     const [backend] = useCanister("backend");
     return (
-        <div className="flex flex-col h-[70vh] items-center mt-[100px]">
+        <div className="flex flex-col h-[85vh] items-center pt-[100px] dark:bg-neutral-800 dark:text-white">
             <h1 className="text-3xl font-bold underline">Home Page</h1>
             <p> My ID is: {principal}</p>
         </div>
