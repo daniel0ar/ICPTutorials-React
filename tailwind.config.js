@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        "bg-gray": "rgb(36,36,40)"
+        "bg-gray": "rgb(36,36,40)",
+        "icp-primary": "indigo",
       }
     },
   },
