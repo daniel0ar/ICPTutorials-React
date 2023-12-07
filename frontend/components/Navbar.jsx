@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { ConnectButton, ConnectDialog } from "@connect2ic/react"
 import logo from "../assets/ICPTutto.svg"
 import { useAuthStore } from "../store/auth.store"
+import { Link } from "react-router-dom"
 
 const Navbar = () => {
 
@@ -18,10 +19,8 @@ const Navbar = () => {
                     <div className="w-max cursor-pointer" onClick={() => router.push('/')}>
                         <img src={logo} alt="logo" />
                     </div>
-                    <ul className="w-100 flex flex-row gap-5">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">DAO</a></li>
-                    </ul>
+                    <Link to={"/"}>Inicio</Link>
+                    <Link to={"/"}>DAO</Link>
                 </div>
                 <div className="flex flex-row items-center gap-5">
                     <span>{userInfo && `Hola, ${userInfo.name}`}</span>
