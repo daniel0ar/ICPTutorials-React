@@ -7,7 +7,7 @@ import Buffer "mo:base/Buffer";
 import HashMap "mo:base/HashMap";
 import Result "mo:base/Result";
 import Types "Types";
-import Member "member";
+import User "user";
 import Account "account";
 
 import Iter "mo:base/Iter";
@@ -19,11 +19,12 @@ shared ({caller}) actor class ICPTutorials() = {
   public type Tutorial = Types.Tutorial;
   public type Publication = Types.Publication;
   public type Account  = Account.Account;
-  public type User = Member.Member;
-  public type SignUpResult = Result.Result<User,Member.SignUpErrors>;
+  public type User = User.User;
+  public type SignUpResult = Result.Result<User,User.SignUpErrors>;
   public type PublishResult = Result.Result<Publication, Text>;
   public type TutoId = Nat;
   public type UserId = Nat;
+  public type UserSettings = User.UserSettings;
 
   stable var currentUserId = 0;
   stable var currentTutorialId = 0;
@@ -38,6 +39,10 @@ shared ({caller}) actor class ICPTutorials() = {
   var incomingPublications = HashMap.HashMap<TutoId,Publication>(1, Types.tutoIdEqual, Types.tutoIdHash);
   var aprovedPublications = HashMap.HashMap<TutoId,Publication>(1, Types.tutoIdEqual, Types.tutoIdHash);
 
+  public query func getUsers(): async [User]{
+    Iter.toArray<User>(users.vals());
+  };
+
   func inBlackList(p: Principal): Bool{
     return switch (blackList.get(p)) {
       case null{false};
@@ -51,7 +56,7 @@ shared ({caller}) actor class ICPTutorials() = {
     false;
   };
 
-  public shared ({caller}) func signUp(name: Text, sex: Text): async SignUpResult{
+  public shared ({caller}) func signUp(name: Text, sex: ?Text): async SignUpResult{
     //TODO: Validación de campos
     if(Principal.isAnonymous(caller)){ return #err(#CallerAnnonymous)};
     if(inBlackList(caller)){ return #err(#InBlackList)};
@@ -87,6 +92,41 @@ shared ({caller}) actor class ICPTutorials() = {
     } 
   };
 
+  public shared ({caller}) func userConfig(settings: UserSettings): async (){
+    
+    switch(getUser(caller)){
+      case null {};
+      case (?user){
+        var userId = 0;
+        switch (userIds.get(caller)){
+          case null { return };
+          case (?id) {userId := id};
+        };
+        let updateUser = {
+          name = switch (settings.name){
+            case null{user.name};
+            case (?newName) {newName};
+          };
+          avatar = switch (settings.avatar) {
+            case null { user.avatar};
+            case (newAvatar) {newAvatar}
+          };
+          country = switch (settings.country) {
+            case null { user.country};
+            case (newCountry) {newCountry};
+          };
+          sex = switch(settings.sex){
+            case null {null};
+            case (newSex) {newSex};
+          };
+          birthdate = user.birthdate;
+          admissionDate = user.admissionDate;
+        };
+        users.put(userId,updateUser)
+      };
+    };
+  };
+
   public shared ({caller}) func loadAvatar(avatar: Blob):async ?Blob{
     switch(userIds.get(caller)){
       case null{return null};
@@ -95,7 +135,7 @@ shared ({caller}) actor class ICPTutorials() = {
           case null{ return null};
           case (?user){   
             //comprimir la imagen     
-            var userUpdate ={
+            var userUpdate = {
               name = user.name;
               country = user.country;
               birthdate = user.birthdate; //DDMMAAA
@@ -118,6 +158,7 @@ shared ({caller}) actor class ICPTutorials() = {
       case _{true};
     };
   };
+  
   public shared ({caller}) func publish(content: Tutorial): async PublishResult{
     switch(userIds.get(caller)){
       case null { return #err("Caller is not a member")};
@@ -135,12 +176,13 @@ shared ({caller}) actor class ICPTutorials() = {
     };
   };
 
-  public query func getUser(p: Principal): async ?User{
+  func getUser(p: Principal): ?User{
     switch(userIds.get(p)){
       case null{null};
       case(?userId){users.get(userId)};
     };
-  }; 
+  };
+
   public shared ({caller}) func aprovePublication(id: Nat):async Result.Result<(), Text> {
     // assert (caller != DAO);
     assert (isAdmin(caller));
