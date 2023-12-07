@@ -1,4 +1,5 @@
 import React from "react"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 /*
  * Connect2ic provides essential utilities for IC app development
  */
@@ -12,17 +13,23 @@ import "@connect2ic/core/style.css"
 import * as backend from "../.dfx/local/canisters/backend"
 
 import { Home } from "./pages/Home"
+import { New } from "./pages/New"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 
 function App() {
 
   return (
-    <div className="App">
-      <Navbar></Navbar>
-      <Home />
-      <Footer></Footer>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar></Navbar>
+        <Routes>
+          <Route path="/" Component={Home}></Route>
+          <Route path="/nuevo" Component={New}></Route>
+        </Routes>
+        <Footer></Footer>
+      </div>
+    </Router>
   )
 }
 

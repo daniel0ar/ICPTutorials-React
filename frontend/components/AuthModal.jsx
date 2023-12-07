@@ -9,6 +9,7 @@ const AuthModal = () => {
   const [backend] = useCanister("backend");
   const { setUserInfo, userInfo, setIsAuthModalOpen } = useAuthStore();
   const [firstName, setFirstName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const signup = async (firstName) => {
     const res = await backend.signUp(firstName);
@@ -20,12 +21,14 @@ const AuthModal = () => {
   }
 
   const handleSignup = async () => {
+    setLoading(true);
     if (firstName) {
       const data = await signup(firstName);
       console.log("DATA IS", data)
       if (data){
         setIsAuthModalOpen();
         setUserInfo(data);
+        setLoading(false);
       }
     }
   }
@@ -57,7 +60,7 @@ const AuthModal = () => {
                         className="bg-indigo-500 py-3 mt-5 w-full text-white font-medium rounded-md hover:bg-indigo-600"
                         onClick={handleSignup}
                       >
-                        Registrarse
+                        {loading ? 'Registrando...' : 'Registrarse'}
                       </button>
                     </div>
                   </div>

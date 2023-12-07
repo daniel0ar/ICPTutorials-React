@@ -4,6 +4,7 @@ import { useConnect } from "@connect2ic/react"
 import AuthModal from "../components/AuthModal"
 import { useAuthStore } from "../store/auth.store"
 import Card from "../components/Card"
+import { Link } from "react-router-dom"
 
 const Home = () => {
   const { isConnected } = useConnect()
@@ -47,12 +48,12 @@ const Home = () => {
     <div className="flex flex-col p-6 dark:bg-neutral-800 dark:text-white">
       {isAuthModalOpen && <AuthModal></AuthModal>}
       {isConnected ? (
-        <div className="p-4">
+        <div className="p-4 min-h-[82vh]">
           <div className="flex flex-row justify-between w-100">
-            <h1 className="text-3xl font-bold">Todos los tutoriales</h1>
-            <button className="rounded-full bg-indigo-600 px-3.5 py-2.5 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-              Nuevo
-            </button>
+            <h1 className="text-3xl font-bold">¿Qué quieres aprender hoy?</h1>
+            <Link to={"/nuevo"} className="rounded-full bg-indigo-600 px-3.5 py-2.5 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              Nuevo Tutorial
+            </Link>
           </div>
           <div className="flex flex-col gap-5 pt-5">
             {tutorials.map((tutorial, index) => (
@@ -69,7 +70,7 @@ const Home = () => {
       ) : (
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 dark:text-gray-100">
+            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 dark:ring-gray-300 dark:hover:ring-gray-200 dark:text-gray-100">
               Parte del hackathon ICP Astro.{" "}
               <a href="#" className="font-semibold text-indigo-600">
                 <span className="absolute inset-0" aria-hidden="true" />
