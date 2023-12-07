@@ -8,14 +8,15 @@ export interface ICPTutorials {
   'getMiId' : ActorMethod<[], [] | [bigint]>,
   'getMiUser' : ActorMethod<[], [] | [User]>,
   'getPubFromUser' : ActorMethod<[bigint], Array<Publication>>,
-  'getUser' : ActorMethod<[Principal], [] | [User]>,
+  'getUsers' : ActorMethod<[], Array<User>>,
   'loadAvatar' : ActorMethod<
     [Uint8Array | number[]],
     [] | [Uint8Array | number[]]
   >,
   'publish' : ActorMethod<[Tutorial], PublishResult>,
   'rejectPublication' : ActorMethod<[bigint], Result>,
-  'signUp' : ActorMethod<[string, [] | [Sex]], SignUpResult>,
+  'signUp' : ActorMethod<[string, [] | [string]], SignUpResult>,
+  'userConfig' : ActorMethod<[UserSettings], undefined>,
 }
 export interface Publication {
   'content' : Tutorial__1,
@@ -26,9 +27,6 @@ export type PublishResult = { 'ok' : Publication } |
   { 'err' : string };
 export type Result = { 'ok' : null } |
   { 'err' : string };
-export type Sex = { 'NonBinary' : null } |
-  { 'Male' : null } |
-  { 'Female' : null };
 export type SignUpErrors = { 'InBlackList' : null } |
   { 'CallerAnnonymous' : null } |
   { 'IsAlreadyAMember' : null };
@@ -37,21 +35,27 @@ export type SignUpResult = { 'ok' : User } |
 export interface Tutorial {
   'title' : string,
   'html' : string,
-  'assets' : [] | [Array<Uint8Array | number[]>],
+  'assets' : Array<Uint8Array | number[]>,
   'tags' : Array<string>,
 }
 export interface Tutorial__1 {
   'title' : string,
   'html' : string,
-  'assets' : [] | [Array<Uint8Array | number[]>],
+  'assets' : Array<Uint8Array | number[]>,
   'tags' : Array<string>,
 }
 export interface User {
-  'sex' : [] | [Sex],
+  'sex' : [] | [string],
   'country' : [] | [string],
   'birthdate' : [] | [bigint],
   'admissionDate' : bigint,
   'name' : string,
+  'avatar' : [] | [Uint8Array | number[]],
+}
+export interface UserSettings {
+  'sex' : [] | [string],
+  'country' : [] | [string],
+  'name' : [] | [string],
   'avatar' : [] | [Uint8Array | number[]],
 }
 export interface _SERVICE extends ICPTutorials {}

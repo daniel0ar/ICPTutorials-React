@@ -1,16 +1,12 @@
 {
   "canisters": {
-    "internet_identity" : {
-      "type": "pull",
-      "id": "rdmx6-jaaaa-aaaaa-aaadq-cai"
-    },
-    "backend": {
-      "main": "canisters/ICPTutorials_backend/main.mo",
+    "counter": {
+      "main": "canisters/counter/main.mo",
       "type": "motoko"
     },
     "assets": {
       "dependencies": [
-        "backend"
+        "counter"
       ],
       "frontend": {
         "entrypoint": "dist/index.html"
@@ -28,7 +24,7 @@
   },
   "networks": {
     "local": {
-      "bind": "127.0.0.1:4943",
+      "bind": "127.0.0.1:8000",
       "type": "ephemeral"
     },
     "ic": {
