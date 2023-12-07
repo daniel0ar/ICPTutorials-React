@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="App dark:bg-neutral-800 dark:text-white">
         <Navbar></Navbar>
         <Routes>
           <Route path="/" Component={Home}></Route>

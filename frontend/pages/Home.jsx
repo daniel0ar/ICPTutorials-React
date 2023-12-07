@@ -45,7 +45,7 @@ const Home = () => {
   }, [isConnected])
 
   return (
-    <div className="flex flex-col p-6 dark:bg-neutral-800 dark:text-white">
+    <div className="flex flex-col p-6">
       {isAuthModalOpen && <AuthModal></AuthModal>}
       {isConnected ? (
         <div className="p-4 min-h-[82vh]">
