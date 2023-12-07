@@ -15,8 +15,12 @@ export interface ICPTutorials {
   >,
   'publish' : ActorMethod<[Tutorial], PublishResult>,
   'rejectPublication' : ActorMethod<[bigint], Result>,
+<<<<<<< HEAD
   'signUp' : ActorMethod<[string, [] | [string]], SignUpResult>,
   'userConfig' : ActorMethod<[UserSettings], undefined>,
+=======
+  'signUp' : ActorMethod<[string, string], SignUpResult>,
+>>>>>>> 89384e70696652360c2553daf291e4faf76fccf2
 }
 export interface Publication {
   'content' : Tutorial__1,
@@ -45,7 +49,11 @@ export interface Tutorial__1 {
   'tags' : Array<string>,
 }
 export interface User {
+<<<<<<< HEAD
   'sex' : [] | [string],
+=======
+  'sex' : string,
+>>>>>>> 89384e70696652360c2553daf291e4faf76fccf2
   'country' : [] | [string],
   'birthdate' : [] | [bigint],
   'admissionDate' : bigint,

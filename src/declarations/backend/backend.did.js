@@ -12,7 +12,11 @@ export const idlFactory = ({ IDL }) => {
     'date' : IDL.Int,
   });
   const User = IDL.Record({
+<<<<<<< HEAD
     'sex' : IDL.Opt(IDL.Text),
+=======
+    'sex' : IDL.Text,
+>>>>>>> 89384e70696652360c2553daf291e4faf76fccf2
     'country' : IDL.Opt(IDL.Text),
     'birthdate' : IDL.Opt(IDL.Nat),
     'admissionDate' : IDL.Int,
@@ -53,8 +57,12 @@ export const idlFactory = ({ IDL }) => {
       ),
     'publish' : IDL.Func([Tutorial], [PublishResult], []),
     'rejectPublication' : IDL.Func([IDL.Nat], [Result], []),
+<<<<<<< HEAD
     'signUp' : IDL.Func([IDL.Text, IDL.Opt(IDL.Text)], [SignUpResult], []),
     'userConfig' : IDL.Func([UserSettings], [], []),
+=======
+    'signUp' : IDL.Func([IDL.Text, IDL.Text], [SignUpResult], []),
+>>>>>>> 89384e70696652360c2553daf291e4faf76fccf2
   });
   return ICPTutorials;
 };
