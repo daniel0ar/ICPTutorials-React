@@ -24,7 +24,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="flex flex-row items-center gap-5">
-                    <span>{userInfo?.name}</span>
+                    <span>{userInfo && `Hola, ${userInfo.name}`}</span>
                     <ConnectButton onDisconnect={() => setUserInfo(null)}/>
                 </div>
             </div>
