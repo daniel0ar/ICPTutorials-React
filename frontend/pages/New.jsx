@@ -32,7 +32,7 @@ const New = () => {
               Título del tutorial
             </label>
             <input
-              className="border border-gray-300 rounded-lg active:border-gray-950 p-4 text-lg dark:bg-gray-950 dark:border-gray-900"
+              className="border border-gray-300 rounded-lg active:border-gray-950 p-4 text-lg dark:bg-neutral-900 dark:border-gray-900"
               value={title}
               onChange={(e) => {
                 if (e.target.value.length <= 100) {
@@ -47,7 +47,7 @@ const New = () => {
               Cuerpo del tutorial
             </label>
             <textarea
-              className="border border-gray-300 h-40 rounded-lg active:border-gray-950 p-4 dark:bg-gray-950 dark:border-gray-900"
+              className="border border-gray-300 h-40 rounded-lg active:border-gray-950 p-4 dark:bg-neutral-900 dark:border-gray-900"
               value={html}
               onChange={(e) => {
                 if (e.target.value.length <= 1000) {
@@ -62,7 +62,7 @@ const New = () => {
               Tags
             </label>
             <input
-              className="border border-gray-300 rounded-lg active:border-gray-950 p-4 text-lg dark:bg-gray-950 dark:border-gray-900"
+              className="border border-gray-300 rounded-lg active:border-gray-950 p-4 text-lg dark:bg-neutral-900 dark:border-gray-900"
               value={tags}
               onChange={(e) => {setTags(e.target.value)}}
             ></input>

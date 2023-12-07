@@ -3,13 +3,12 @@ import React from "react";
 const Card = ({title, description, author, readTime}) => {
   return (
       <div className="w-full lg:max-w-full lg:flex">
-
-        <div className="border border-gray-400  bg-white dark:bg-black rounded-lg p-4 flex flex-col justify-between leading-normal">
+        <div className="border border-gray-400 dark:border-gray-800 bg-white dark:bg-neutral-900 rounded-lg p-6 flex flex-col justify-between leading-normal max-w-xl">
           <div className="mb-8">
-            <div className="text-gray-900 font-bold text-xl mb-2">
+            <div className="text-gray-900 font-bold text-xl mb-2 dark:text-gray-300">
               {title}
             </div>
-            <p className="text-gray-700 text-base">
+            <p className="text-gray-700 text-base dark:text-gray-400">
               {description}
             </p>
           </div>
