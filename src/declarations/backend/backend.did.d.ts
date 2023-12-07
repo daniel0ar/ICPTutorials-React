@@ -15,7 +15,7 @@ export interface ICPTutorials {
   >,
   'publish' : ActorMethod<[Tutorial], PublishResult>,
   'rejectPublication' : ActorMethod<[bigint], Result>,
-  'signUp' : ActorMethod<[string, [] | [Sex]], SignUpResult>,
+  'signUp' : ActorMethod<[string, string], SignUpResult>,
 }
 export interface Publication {
   'content' : Tutorial__1,
@@ -26,9 +26,6 @@ export type PublishResult = { 'ok' : Publication } |
   { 'err' : string };
 export type Result = { 'ok' : null } |
   { 'err' : string };
-export type Sex = { 'NonBinary' : null } |
-  { 'Male' : null } |
-  { 'Female' : null };
 export type SignUpErrors = { 'InBlackList' : null } |
   { 'CallerAnnonymous' : null } |
   { 'IsAlreadyAMember' : null };
@@ -47,7 +44,7 @@ export interface Tutorial__1 {
   'tags' : Array<string>,
 }
 export interface User {
-  'sex' : [] | [Sex],
+  'sex' : string,
   'country' : [] | [string],
   'birthdate' : [] | [bigint],
   'admissionDate' : bigint,

@@ -5,7 +5,7 @@ type User =
    birthdate: opt nat;
    country: opt text;
    name: text;
-   sex: opt Sex;
+   sex: text;
  };
 type Tutorial__1 = 
  record {
@@ -31,12 +31,6 @@ type SignUpErrors =
    CallerAnnonymous;
    InBlackList;
    IsAlreadyAMember;
- };
-type Sex = 
- variant {
-   Female;
-   Male;
-   NonBinary;
  };
 type Result = 
  variant {
@@ -66,6 +60,6 @@ type ICPTutorials =
    loadAvatar: (blob) -> (opt blob);
    publish: (Tutorial) -> (PublishResult);
    rejectPublication: (nat) -> (Result);
-   signUp: (text, opt Sex) -> (SignUpResult);
+   signUp: (text, text) -> (SignUpResult);
  };
 service : () -> ICPTutorials

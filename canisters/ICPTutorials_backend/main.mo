@@ -51,7 +51,7 @@ shared ({caller}) actor class ICPTutorials() = {
     false;
   };
 
-  public shared ({caller}) func signUp(name: Text, sex: ?Member.Sex): async SignUpResult{
+  public shared ({caller}) func signUp(name: Text, sex: Text): async SignUpResult{
     //TODO: Validación de campos
     if(Principal.isAnonymous(caller)){ return #err(#CallerAnnonymous)};
     if(inBlackList(caller)){ return #err(#InBlackList)};

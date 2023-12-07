@@ -6,13 +6,7 @@ module{
         name: Text;
         birthdate: Nat; //DDMMAAA
         //account: Account;
-        sex: Sex;
-    };
-
-    public type Sex = {
-        #Male;
-        #Female;
-        #NonBinary;   
+        sex: Text;
     };
 
     public type Mode = {

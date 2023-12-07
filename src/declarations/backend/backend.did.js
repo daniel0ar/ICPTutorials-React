@@ -11,13 +11,8 @@ export const idlFactory = ({ IDL }) => {
     'autor' : IDL.Nat,
     'date' : IDL.Int,
   });
-  const Sex = IDL.Variant({
-    'NonBinary' : IDL.Null,
-    'Male' : IDL.Null,
-    'Female' : IDL.Null,
-  });
   const User = IDL.Record({
-    'sex' : IDL.Opt(Sex),
+    'sex' : IDL.Text,
     'country' : IDL.Opt(IDL.Text),
     'birthdate' : IDL.Opt(IDL.Nat),
     'admissionDate' : IDL.Int,
@@ -52,7 +47,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     'publish' : IDL.Func([Tutorial], [PublishResult], []),
     'rejectPublication' : IDL.Func([IDL.Nat], [Result], []),
-    'signUp' : IDL.Func([IDL.Text, IDL.Opt(Sex)], [SignUpResult], []),
+    'signUp' : IDL.Func([IDL.Text, IDL.Text], [SignUpResult], []),
   });
   return ICPTutorials;
 };
