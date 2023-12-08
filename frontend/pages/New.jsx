@@ -23,7 +23,7 @@ const New = () => {
   };
 
   return (
-    <div className="p-6 max-w-lg">
+    <div className="p-6 max-w-lg min-h-[85vh]">
       <h3 className="font-bold text-4xl my-5">Crea tu primer tutorial</h3>
       <form onSubmit={handleSubmit}>
         <div className="flex gap-3 flex-col">

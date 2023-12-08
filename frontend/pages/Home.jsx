@@ -62,7 +62,7 @@ const Home = () => {
                 title={tutorial?.content.title}
                 description={tutorial?.content.html.slice(0,300)}
                 author={tutorial?.autor}
-                readTime={5}
+                readTime={(Math.random(0,10)*2).toFixed(1)+1}
               ></Card>
             ))}
           </div>

@@ -15,7 +15,7 @@ const Card = ({title, description, author, readTime}) => {
           <div className="flex items-center">
             <div className="text-sm">
               <p className="text-gray-900 leading-none">{author}</p>
-              <p className="text-gray-600">{readTime} hours</p>
+              <p className="text-gray-600">{readTime} horas</p>
             </div>
           </div>
         </div>
