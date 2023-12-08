@@ -56,6 +56,16 @@ shared ({caller}) actor class ICPTutorials() = {
     false;
   };
 
+  public shared ({caller}) func addAdmin(p: Principal): async Bool{
+    assert(isAdmin(caller));
+    for(a in admins.vals()){ if(a == p){ return true}};
+    var tempBuffer = Buffer.fromArray<Principal>(admins);
+    tempBuffer.add(p);
+
+    admins := Buffer.toArray<Principal>(tempBuffer);
+    true;
+  };
+
   public shared ({caller}) func signUp(name: Text, sex: Text): async SignUpResult{
     //TODO: Validación de campos
     if(Principal.isAnonymous(caller)){ return #err(#CallerAnnonymous)};
@@ -210,8 +220,9 @@ shared ({caller}) actor class ICPTutorials() = {
     return Iter.toArray(incomingPublications.vals());
   };
 
-  public query func getAprovedPublication(): async [Publication]{
-    return Iter.toArray(aprovedPublications.vals());
+  public query func getAprovedPublication(): async [(TutoId, Publication)]{
+    
+    return Iter.toArray(aprovedPublications.entries());
   };
   
   public query func getPubFromUser(userId: Nat): async [Publication]{
