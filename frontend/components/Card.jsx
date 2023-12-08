@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({title, description, author, readTime}) => {
   return (
-      <div className="w-full lg:max-w-full lg:flex">
+      <div className="w-full lg:max-w-full lg:flex cursor-pointer">
         <div className="border border-gray-400 dark:border-gray-800 bg-white dark:bg-neutral-900 rounded-lg p-6 flex flex-col justify-between leading-normal max-w-xl">
           <div className="mb-8">
             <div className="text-gray-900 font-bold text-xl mb-2 dark:text-gray-300">

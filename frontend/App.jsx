@@ -15,6 +15,7 @@ import * as backend from "../.dfx/local/canisters/backend"
 import { Home } from "./pages/Home"
 import { New } from "./pages/New"
 import { IncomingPubs } from "./pages/IncomingPubs"
+import { Tutorial } from "./pages/Tutorial"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" Component={Home}></Route>
           <Route path="/nuevo" Component={New}></Route>
           <Route path="/incoming" Component={IncomingPubs}></Route>
+          <Route path="/tutorial/:id" Component={Tutorial}></Route>
         </Routes>
         <Footer></Footer>
       </div>

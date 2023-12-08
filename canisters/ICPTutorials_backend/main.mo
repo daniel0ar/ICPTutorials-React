@@ -11,6 +11,7 @@ import User "user";
 import Account "account";
 
 import Iter "mo:base/Iter";
+import Text "mo:base/Text";
 // import Hash "mo:base/Hash";
 
 shared ({caller}) actor class ICPTutorials() = {
@@ -56,6 +57,16 @@ shared ({caller}) actor class ICPTutorials() = {
     false;
   };
 
+  public shared ({caller}) func addAdmin(p: Text): async Bool{
+    assert(isAdmin(caller));
+    for(a in admins.vals()){ if(a == Principal.fromText(p)){ return true}};
+    var tempBuffer = Buffer.fromArray<Principal>(admins);
+    tempBuffer.add(Principal.fromText(p));
+
+    admins := Buffer.toArray<Principal>(tempBuffer);
+    true;
+  };
+
   public shared ({caller}) func signUp(name: Text, sex: Text): async SignUpResult{
     //TODO: Validación de campos
     if(Principal.isAnonymous(caller)){ return #err(#CallerAnnonymous)};
@@ -72,6 +83,7 @@ shared ({caller}) actor class ICPTutorials() = {
           sex = ?sex;
           avatar = null;
           birthdate = null; //DDMMAAAA
+          votedPosts = [];
         };
         users.put(currentUserId,newMember);
         currentUserId += 1;
@@ -121,6 +133,7 @@ shared ({caller}) actor class ICPTutorials() = {
           };
           birthdate = user.birthdate;
           admissionDate = user.admissionDate;
+          votedPosts = user.votedPosts;
         };
         users.put(userId,updateUser)
       };
@@ -143,6 +156,7 @@ shared ({caller}) actor class ICPTutorials() = {
               //account = user.account;
               avatar = ?avatar;
               sex = user.sex;
+              votedPosts = user.votedPosts;
             };
             users.put(userId,userUpdate);
             return userUpdate.avatar;
@@ -168,6 +182,7 @@ shared ({caller}) actor class ICPTutorials() = {
           autor = userId;
           date;
           content;
+          score = null;
         };
         incomingPublications.put(currentTutorialId, pub);
         currentTutorialId += 1;
@@ -210,13 +225,77 @@ shared ({caller}) actor class ICPTutorials() = {
     return Iter.toArray(incomingPublications.vals());
   };
 
-  public query func getAprovedPublication(): async [Publication]{
-    return Iter.toArray(aprovedPublications.vals());
+  public query func getAprovedPublication(): async [(TutoId, Publication)]{  
+    return Iter.toArray(aprovedPublications.entries());
+  };
+
+  public query func getAutorFromPub(pubID: TutoId): async Text{
+    switch(aprovedPublications.get(pubID)){
+      case null {return ""};
+      case (?pub){
+        return switch (users.get(pub.autor)){
+          case null {""};
+          case (?user){user.name};
+        };
+      };
+    }; 
   };
   
   public query func getPubFromUser(userId: Nat): async [Publication]{
     var pubs = Iter.toArray(aprovedPublications.vals());
     Array.filter<Publication>(pubs, func x: Bool {x.autor == userId});  
   };
+
+  public query func getPubByID(id: Nat): async ?Publication{
+    aprovedPublications.get(id);
+  };
+  
+  public query func search(target : Text) : async [Publication] {
+    var tokens = Iter.fromArray<Text>([]);
+    let pubs = aprovedPublications.vals();
+    let tempBuffer = Buffer.fromArray<Publication>([]);
+    label for0 loop {
+      switch (pubs.next()) {
+        case (?pub) {
+          tokens := Text.split(target, #char(' '));
+          label for1 loop {
+            switch (tokens.next()) {
+              case (?p) {
+                if (Text.contains(pub.content.title, #text(p))) {
+                  tempBuffer.add(pub);
+                  break for1;
+                };
+              };
+              case (null) break for1;
+            };
+          };
+        
+        };
+        case null { break for0 };
+      };
+    };
+    Buffer.toArray<Publication>(tempBuffer);
+  };
+
+/*
+  func inArray<T>(a: [T], e: T): Bool{
+    for(elem in a.vals()){
+      if(elem == e){return true};
+    };
+    return false;
+  };
+
+  public shared ({caller}) func qualify(id: TutoId, q: Nat): async Bool{
+    switch(getUser(caller)){
+      case null {return false };
+      case(?user){
+        if(inArray<TutoId>(user.votedPosts, id)){
+          return false;
+        };
+
+      };
+    };
+  };
+  */
 
 };

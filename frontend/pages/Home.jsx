@@ -4,17 +4,18 @@ import { useConnect } from "@connect2ic/react"
 import AuthModal from "../components/AuthModal"
 import { useAuthStore } from "../store/auth.store"
 import Card from "../components/Card"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Home = () => {
-  const { isConnected } = useConnect()
-  const { isAuthModalOpen, setIsAuthModalOpen, setUserInfo } = useAuthStore()
-  const [tutorials, setTutorials] = useState([])
+  const { isConnected } = useConnect();
+  const { isAuthModalOpen, setIsAuthModalOpen, setUserInfo } = useAuthStore();
+  const navigate = useNavigate();
+  const [tutorials, setTutorials] = useState([]);
 
-  const [backend] = useCanister("backend")
+  const [backend] = useCanister("backend");
 
   const checkUser = async () => {
-    const res = await backend.getMiUser()
+    const res = await backend.getMiUser() // TODO: check why on second connect returns empty array
     console.log("Usuario es: ", res)
     if (res?.length > 0) {
       return res[0]
@@ -35,6 +36,10 @@ const Home = () => {
     const res = await backend.getAprovedPublication()
     console.log("Publications are: ", res)
     setTutorials(res)
+  };
+
+  const handleTutorialOpen = (id) => {
+    navigate(`/tutorial/${id}`);
   }
 
   useEffect(() => {
@@ -57,13 +62,15 @@ const Home = () => {
           </div>
           <div className="flex flex-col gap-5 pt-5">
             {tutorials.map((tutorial, index) => (
-              <Card
-                key={index}
-                title={tutorial?.content.title}
-                description={tutorial?.content.html.slice(0,300)}
-                author={tutorial?.autor}
-                readTime={(Math.random(0,10)*2).toFixed(1)+1}
-              ></Card>
+              <div key={tutorial[0]} onClick={() => handleTutorialOpen(tutorial[0])}>
+                <Card
+                  key={tutorial[0]}
+                  title={tutorial[1]?.content.title}
+                  description={tutorial[1]?.content.html.slice(0, 300)}
+                  author={tutorial[1]?.autor}
+                  readTime={(Math.random(0,10)*2).toFixed(1)+1}
+                ></Card>
+              </div>
             ))}
           </div>
         </div>
