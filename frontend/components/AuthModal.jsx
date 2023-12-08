@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react"
-import { IoMdClose } from "react-icons/io"
+import React, { useState } from "react"
 import FormInput from "./FormInput"
 import { useCanister } from "@connect2ic/react"
 import { useAuthStore } from "../store/auth.store"
@@ -11,9 +10,8 @@ const AuthModal = () => {
   const [firstName, setFirstName] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const signup = async (firstName) => {
-    const res = await backend.signUp(firstName);
-    console.log("RES IS: ", res);
+  const signup = async (firstName, sex) => {
+    const res = await backend.signUp(firstName, sex);
     if (res.ok){
       return res.ok;
     }
@@ -23,8 +21,7 @@ const AuthModal = () => {
   const handleSignup = async () => {
     setLoading(true);
     if (firstName) {
-      const data = await signup(firstName);
-      console.log("DATA IS", data)
+      const data = await signup(firstName, "Male");
       if (data){
         setIsAuthModalOpen();
         setUserInfo(data);

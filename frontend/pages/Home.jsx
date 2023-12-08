@@ -14,7 +14,7 @@ const Home = () => {
   const [backend] = useCanister("backend")
 
   const checkUser = async () => {
-    const res = await backend.getMiUser()
+    const res = await backend.getMiUser() // TODO: check why on second connect returns empty array
     console.log("Usuario es: ", res)
     if (res?.length > 0) {
       return res[0]
