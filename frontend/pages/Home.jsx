@@ -50,10 +50,10 @@ const Home = () => {
   }, [isConnected])
 
   return (
-    <div className="flex flex-col p-6">
+    <div className="flex flex-col p-6 min-h-[86vh]">
       {isAuthModalOpen && <AuthModal></AuthModal>}
       {isConnected ? (
-        <div className="p-4 min-h-[82vh]">
+        <div className="p-4">
           <div className="flex flex-row justify-between w-100">
             <h1 className="text-3xl font-bold">¿Qué quieres aprender hoy?</h1>
             <Link to={"/nuevo"} className="rounded-full bg-indigo-600 px-3.5 py-2.5 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
@@ -79,9 +79,9 @@ const Home = () => {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 dark:ring-gray-300 dark:hover:ring-gray-200 dark:text-gray-100">
               Parte del hackathon ICP Astro.{" "}
-              <a href="#" className="font-semibold text-indigo-600">
+              <a href="https://lu.ma/session-fc4wl8w8bq6zdk37rfo8" className="font-semibold text-indigo-600">
                 <span className="absolute inset-0" aria-hidden="true" />
-                Leer <span aria-hidden="true">&rarr;</span>
+                Ver <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
@@ -96,7 +96,7 @@ const Home = () => {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href="#"
+                href="https://internetcomputer.org/docs/current/home"
                 className="rounded-full bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Conoce más

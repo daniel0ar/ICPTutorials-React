@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { ConnectButton, ConnectDialog } from "@connect2ic/react"
-import logo from "../assets/ICPTutto.svg"
+import logo from "../assets/Icptutorials-logo.png"
 import { useAuthStore } from "../store/auth.store"
 import { Link, useNavigate } from "react-router-dom"
 import { RxHamburgerMenu } from "react-icons/rx"
@@ -58,8 +58,8 @@ const Navbar = () => {
       <div className="w-full h-20 flex flex-col justify-center border-b border-b-gray-200 dark:bg-zinc-950 dark:text-white dark:border-0">
         <div className="flex items-center justify-between px-20">
           <div className="flex flex-row gap-5 items-center">
-            <Link className="w-max cursor-pointer" to={"/"}>
-              <img src={logo} alt="logo" />
+            <Link className="w-max cursor-pointer font-extrabold mr-3" to={"/"}>
+              <img src={logo} alt="logo" className="w-10 inline"/> icp tutorials
             </Link>
             <Link to={"/"}>Inicio</Link>
             <Link to={"/"}>DAO</Link>
